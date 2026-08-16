@@ -1,0 +1,18 @@
+# Photo credits
+
+Product photos are royalty-free stock images from **Wikimedia Commons**, used as placeholders.
+Each is licensed as noted below — keep this attribution if you keep the image, or replace it with your own photo (drop a file with the same name into `assets/img/`).
+
+| File | Product | Title | License |
+|---|---|---|---|
+| `beef-bone-in.jpg` | Beef — Bone-in | [Raw Beef at Barkin Dogo Market 01.jpg](https://commons.wikimedia.org/wiki/File:Raw_Beef_at_Barkin_Dogo_Market_01.jpg) | CC BY-SA 4.0 |
+| `beef-boneless.jpg` | Beef — Boneless | [Assorted Raw Beef, Pork & Chicken Slices for Yakiniku.jpg](https://commons.wikimedia.org/wiki/File:Assorted_Raw_Beef%2C_Pork_%26_Chicken_Slices_for_Yakiniku.jpg) | CC BY-SA 4.0 |
+| `beef-mince.jpg` | Beef Mince | [Minced Beef.jpg](https://commons.wikimedia.org/wiki/File:Minced_Beef.jpg) | CC BY-SA 4.0 |
+| `goat.jpg` | Goat Meat | [Local Goat Meat Beef.jpg](https://commons.wikimedia.org/wiki/File:Local_Goat_Meat_Beef.jpg) | CC BY-SA 4.0 |
+| `mutton.jpg` | Mutton | [Raw lamb cutlets with shredded ginger and rosemary.jpg](https://commons.wikimedia.org/wiki/File:Raw_lamb_cutlets_with_shredded_ginger_and_rosemary.jpg) | CC BY-SA 3.0 |
+| `pork.jpg` | Pork | [Raw pork spareribs.jpg](https://commons.wikimedia.org/wiki/File:Raw_pork_spareribs.jpg) | Public domain |
+| `chicken-broiler.jpg` | Broiler Chicken | [Raw chicken for sale.jpg](https://commons.wikimedia.org/wiki/File:Raw_chicken_for_sale.jpg) | CC BY-SA 3.0 |
+| `chicken-kienyeji.jpg` | Kienyeji Chicken | [Raw leg chicken quarters.jpg](https://commons.wikimedia.org/wiki/File:Raw_leg_chicken_quarters.jpg) | CC BY-SA 4.0 |
+| `matumbo.jpg` | Matumbo (Tripe) | [Beef tripe.jpg](https://commons.wikimedia.org/wiki/File:Beef_tripe.jpg) | CC BY-SA 4.0 |
+
+Source: Wikimedia Commons. CC BY-SA licenses require attribution and share-alike; CC0 / Public domain require nothing. See each file page for full terms.

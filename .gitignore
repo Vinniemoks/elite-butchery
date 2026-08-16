@@ -1,0 +1,15 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Logs / env (not used by the static site, but safe to ignore)
+*.log
+.env
+.env.local
+
+# Dependency dirs (only if you later add a build step)
+node_modules/
+dist/

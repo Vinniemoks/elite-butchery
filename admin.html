@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin · Prime Cuts Butchery</title>
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#8A2233" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body class="admin-body">
+
+<!-- LOGIN -->
+<div class="login-wrap" id="login">
+  <div class="login-card">
+    <div class="mark" aria-hidden="true">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+    </div>
+    <h1>Admin Access</h1>
+    <p>Enter your PIN to manage prices and settings.</p>
+    <form id="pinForm">
+      <div class="pinrow"><input id="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="12" aria-label="Admin PIN" /></div>
+      <div class="loginerr" id="loginErr"></div>
+      <button class="btn btn--block" type="submit">Unlock</button>
+    </form>
+    <p class="note">Default PIN is <b>1234</b> — change it under Settings after your first sign-in. This is a client-side gate; see README for a secure backend option.</p>
+    <p style="margin-top:1rem"><a href="index.html" style="font-size:.85rem;color:var(--ink-soft)">← Back to shop</a></p>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="admin-shell" id="dash" hidden>
+  <div class="admin-top">
+    <a class="brand" href="index.html">
+      <span class="mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a5 5 0 0 1 5-5h2l7-6v6l-4 3v5a3 3 0 0 1-3 3H8a4 4 0 0 1-4-4Z"/></svg></span>
+      <span><b data-biz="name">Prime Cuts Butchery</b><span class="tag">Admin dashboard</span></span>
+    </a>
+    <span class="badge">Admin</span>
+    <button class="iconbtn themetoggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+    </button>
+    <a class="btn btn--ghost btn--sm" href="index.html">View shop</a>
+    <button class="btn btn--sm" id="logout">Lock</button>
+  </div>
+
+  <!-- PRICES -->
+  <div class="panel">
+    <h2>Prices &amp; Stock</h2>
+    <p class="sub">All prices are in Kenyan Shillings, per kilogram. Edit a price, toggle stock, then <b>Save changes</b>. Changes apply to this browser immediately; to publish to every customer, use <b>Export for deploy</b> below.</p>
+    <div class="tablewrap">
+      <table class="admin" id="priceTable">
+        <thead><tr><th>Product</th><th>Category</th><th>Price / kg</th><th>In stock</th><th></th></tr></thead>
+        <tbody id="priceBody"></tbody>
+      </table>
+    </div>
+    <div class="actionsbar">
+      <button class="btn" id="saveProducts">Save changes</button>
+      <button class="btn btn--ghost btn--sm" id="addProduct">+ Add product</button>
+      <span class="savepill" id="savePill">Saved ✓</span>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="panel">
+    <h2>Business Settings</h2>
+    <p class="sub">Shop details, contact channels and delivery rules used across the site and on WhatsApp orders.</p>
+    <form id="settingsForm">
+      <div class="admin-grid">
+        <div class="field"><label for="s-name">Business name</label><input id="s-name" name="name" type="text" /></div>
+        <div class="field"><label for="s-location">Location (short)</label><input id="s-location" name="location" type="text" /></div>
+        <div class="field" style="grid-column:1/-1"><label for="s-tagline">Tagline</label><input id="s-tagline" name="tagline" type="text" /></div>
+        <div class="field" style="grid-column:1/-1"><label for="s-address">Full address</label><input id="s-address" name="address" type="text" /></div>
+        <div class="field"><label for="s-phone">Phone</label><input id="s-phone" name="phone" type="text" /></div>
+        <div class="field"><label for="s-whatsapp">WhatsApp number (digits, e.g. 2547XXXXXXXX)</label><input id="s-whatsapp" name="whatsapp" type="text" inputmode="numeric" /></div>
+        <div class="field"><label for="s-email">Email</label><input id="s-email" name="email" type="email" /></div>
+        <div class="field"><label for="s-mpesa">M-Pesa Buy Goods till</label><input id="s-mpesa" name="mpesaTill" type="text" inputmode="numeric" /></div>
+        <div class="field" style="grid-column:1/-1"><label for="s-hours">Opening hours</label><input id="s-hours" name="hours" type="text" /></div>
+        <div class="field"><label for="s-fee">Delivery fee (KES)</label><input id="s-fee" name="deliveryFee" type="number" min="0" step="10" /></div>
+        <div class="field"><label for="s-free">Free delivery over (KES)</label><input id="s-free" name="freeDeliveryThreshold" type="number" min="0" step="100" /></div>
+        <div class="field"><label for="s-give">Give-back (% of profit)</label><input id="s-give" name="givebackPercent" type="number" min="0" max="100" step="1" /></div>
+      </div>
+      <div class="actionsbar">
+        <button class="btn" type="submit">Save settings</button>
+        <span class="savepill" id="savePill2">Saved ✓</span>
+      </div>
+    </form>
+  </div>
+
+  <!-- SECURITY -->
+  <div class="panel">
+    <h2>Admin PIN</h2>
+    <p class="sub">Change the PIN used to open this dashboard.</p>
+    <form id="pinChangeForm">
+      <div class="admin-grid">
+        <div class="field"><label for="s-pin">New PIN</label><input id="s-pin" type="password" inputmode="numeric" maxlength="12" /></div>
+        <div class="field"><label for="s-pin2">Confirm PIN</label><input id="s-pin2" type="password" inputmode="numeric" maxlength="12" /></div>
+      </div>
+      <div class="actionsbar">
+        <button class="btn" type="submit">Update PIN</button>
+        <span class="savepill" id="savePill3">Updated ✓</span>
+      </div>
+      <div class="loginerr" id="pinChangeErr" style="min-height:auto"></div>
+    </form>
+  </div>
+
+  <!-- DEPLOY -->
+  <div class="panel">
+    <h2>Publish &amp; Backup</h2>
+    <p class="sub">Your edits live in this browser. To make them the permanent, everyone-sees-them version, export the data file and commit it to your repository (replace <code>assets/js/data.js</code>), then redeploy.</p>
+    <div class="actionsbar">
+      <button class="btn btn--brass" id="exportData">⬇ Export for deploy (data.js)</button>
+      <button class="btn btn--ghost btn--sm" id="copyData">Copy to clipboard</button>
+      <label class="btn btn--ghost btn--sm" for="importFile" style="cursor:pointer">Import backup…</label>
+      <input id="importFile" type="file" accept=".js,.json,text/*" hidden />
+      <button class="btn btn--ghost btn--sm" id="resetData" style="color:var(--warn)">Reset to defaults</button>
+    </div>
+    <div class="note" id="deployNote">Tip: after committing the new <b>data.js</b>, run your deploy (GitHub Pages / Netlify / Vercel). New visitors will get the updated prices.</div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4 10-11"/></svg>
+  <span id="toastMsg">Saved</span>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>
