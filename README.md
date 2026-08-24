@@ -1,4 +1,4 @@
-# Prime Cuts Butchery 🥩
+# Elite Butchery 🥩
 
 A fast, no-build website + admin system for a Kenyan butchery based in **Uthiru, Nairobi**.
 Customers browse cuts priced **per kilogram in KES**, build an order with weight steppers, and
@@ -76,7 +76,7 @@ falls back to a clean line-art icon, so nothing ever breaks.
 cd Butchery
 git init
 git add .
-git commit -m "Prime Cuts Butchery site"
+git commit -m "Elite Butchery site"
 git branch -M main
 git remote add origin https://github.com/<you>/<repo>.git
 git push -u origin main
@@ -122,4 +122,4 @@ The rest of the UI stays the same.
 
 ---
 
-© Prime Cuts Butchery — Uthiru, Nairobi, Kenya.
+© Elite Butchery — Uthiru, Nairobi, Kenya.

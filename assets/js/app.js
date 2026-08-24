@@ -1,5 +1,5 @@
 /* =============================================================
-   Prime Cuts Butchery — STOREFRONT
+   Elite Butchery — STOREFRONT
    ============================================================= */
 (function () {
   "use strict";

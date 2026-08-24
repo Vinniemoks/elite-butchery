@@ -1,5 +1,5 @@
 /* =============================================================
-   Prime Cuts Butchery — DEFAULT DATA (seed / source of truth)
+   Elite Butchery — DEFAULT DATA (seed / source of truth)
    -------------------------------------------------------------
    This file is the catalog that ships with the repo. The Admin
    panel edits a live copy in the browser (localStorage). When the
@@ -11,14 +11,14 @@
 window.BUTCHERY_DEFAULTS = {
   /* Business settings — all editable from the Admin panel */
   business: {
-    name: "Prime Cuts Butchery",
-    tagline: "Fresh nyama, cut to order — delivered across Nairobi.",
+    name: "Elite Butchery",
+    tagline: "Premium cuts, quality assured — fresh nyama delivered across Nairobi.",
     location: "Uthiru, Nairobi",
     address: "Uthiru Shopping Centre, Waiyaki Way, Nairobi, Kenya",
     phone: "+254 700 000 000",
     whatsapp: "254700000000",          // digits only, country code first, no +
     mpesaTill: "000000",               // M-Pesa Buy Goods till number
-    email: "orders@primecuts.co.ke",
+    email: "orders@elitebutchery.co.ke",
     hours: "Mon–Sat: 7:00am – 8:00pm  ·  Sun: 8:00am – 6:00pm",
     deliveryFee: 200,                  // KES flat delivery fee
     freeDeliveryThreshold: 5000,       // KES subtotal for free delivery

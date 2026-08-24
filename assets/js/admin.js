@@ -1,5 +1,5 @@
 /* =============================================================
-   Prime Cuts Butchery — ADMIN
+   Elite Butchery — ADMIN
    Client-side price/settings manager. PIN gate is a convenience
    lock only (see README for a real backend). All data persists to
    localStorage and can be exported back into assets/js/data.js.

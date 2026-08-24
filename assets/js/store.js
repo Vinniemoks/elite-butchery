@@ -1,5 +1,5 @@
 /* =============================================================
-   Prime Cuts Butchery — SHARED STORE
+   Elite Butchery — SHARED STORE
    Currency (KES), persistence, cart, icons, export helpers.
    localStorage is the "live" store shared by the storefront and
    the admin panel on this browser/device.
@@ -133,7 +133,7 @@
       products: getProducts()
     };
     return "/* =============================================================\n" +
-           "   Prime Cuts Butchery — DEFAULT DATA (source of truth)\n" +
+           "   Elite Butchery — DEFAULT DATA (source of truth)\n" +
            "   Exported from the Admin panel on " + new Date().toString() + "\n" +
            "   Prices are Kenyan Shillings (KES), per kilogram.\n" +
            "   ============================================================= */\n" +
