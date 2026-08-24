@@ -52,13 +52,13 @@
       + '</div>'
       + '<div class="body">'
       +   '<div class="top"><div><h3>' + esc(p.name) + '</h3>' + (p.swahili ? '<span class="sw">' + esc(p.swahili) + '</span>' : '') + '</div>'
-      +     '<span class="price num">' + S.format(p.price) + '<small>per kg</small></span></div>'
+      +     '<span class="price num">' + S.format(p.price) + '<small>' + unitLabel(p) + (p.priceNote ? ' · ' + esc(p.priceNote) : '') + '</small></span></div>'
       +   '<p class="desc">' + esc(p.desc || "") + '</p>'
       +   (out ? '<button class="btn btn--ghost btn--block" disabled>Unavailable</button>'
             : '<div class="buy">'
-              + '<div class="stepper" role="group" aria-label="Weight for ' + esc(p.name) + '">'
+              + '<div class="stepper" role="group" aria-label="Quantity for ' + esc(p.name) + '">'
               +   '<button type="button" data-step="' + p.id + '" data-d="-1" aria-label="Less">−</button>'
-              +   '<span class="val num" data-val="' + p.id + '" data-step-kg="' + step + '" data-min-kg="' + min + '">' + fmtKg(min) + '</span>'
+              +   '<span class="val num" data-val="' + p.id + '" data-step-kg="' + step + '" data-min-kg="' + min + '" data-unit="' + (p.unit || "kg") + '">' + qtyText(p, min) + '</span>'
               +   '<button type="button" data-step="' + p.id + '" data-d="1" aria-label="More">+</button>'
               + '</div>'
               + '<button class="btn" data-add="' + p.id + '">Add</button>'
@@ -85,9 +85,10 @@
     var g = grouped();
     el.innerHTML = g.order.map(function (cat) {
       var rows = g.groups[cat].map(function (p) {
+        var note = p.priceNote ? ' <span>· ' + esc(p.priceNote) + '</span>' : '';
         return '<tr' + (p.available === false ? ' class="pl-out"' : '') + '>'
-          + '<td class="pl-name">' + esc(p.name) + (p.swahili ? ' <span>(' + esc(p.swahili) + ')</span>' : '') + '</td>'
-          + '<td class="pl-price num">' + S.format(p.price) + (p.available === false ? ' <em>· out of stock</em>' : '') + '</td>'
+          + '<td class="pl-name">' + esc(p.name) + (p.swahili ? ' <span>(' + esc(p.swahili) + ')</span>' : '') + note + '</td>'
+          + '<td class="pl-price num">' + S.format(p.price) + (isEach(p) ? ' <em>each</em>' : ' <em>/kg</em>') + (p.available === false ? ' <em>· out</em>' : '') + '</td>'
           + '</tr>';
       }).join("");
       return '<div class="pl-group"><table class="pricelist"><caption>' + esc(cat) + '</caption>'
@@ -96,6 +97,9 @@
   }
 
   function fmtKg(n) { return (Math.round(n * 100) / 100) + " kg"; }
+  function isEach(p) { return p && p.unit === "each"; }
+  function unitLabel(p) { return isEach(p) ? "each" : "per kg"; }
+  function qtyText(p, n) { n = Math.round(n * 100) / 100; return isEach(p) ? (n + (n === 1 ? " pc" : " pcs")) : (n + " kg"); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
   /* stepper + add (delegated) */
@@ -106,17 +110,17 @@
       var stepKg = parseFloat(val.dataset.stepKg), minKg = parseFloat(val.dataset.minKg);
       var cur = parseFloat(val.textContent);
       var next = Math.max(minKg, Math.round((cur + stepKg * parseInt(step.dataset.d, 10)) * 100) / 100);
-      val.textContent = fmtKg(next);
+      val.textContent = (val.dataset.unit === "each") ? (next + (next === 1 ? " pc" : " pcs")) : fmtKg(next);
       return;
     }
     var add = e.target.closest("[data-add]");
     if (add) {
       var id = add.dataset.add;
       var kg = parseFloat(grid.querySelector('[data-val="' + id + '"]').textContent);
+      var p = S.productById(id);
       S.cartAdd(id, kg);
       render();
-      var p = S.productById(id);
-      toast(p.name + " · " + fmtKg(kg) + " added");
+      toast(p.name + " · " + qtyText(p, kg) + " added");
     }
   });
 
@@ -140,10 +144,10 @@
         return '<div class="ditem">'
           + '<div class="di-art">' + S.icon(p.art) + (p.img ? '<img class="art-photo" src="' + esc(p.img) + '" alt="" loading="lazy" onerror="this.remove()" />' : '') + '</div>'
           + '<div class="di-mid"><b>' + esc(p.name) + '</b>'
-          +   '<span class="di-price num">' + S.format(p.price) + ' / kg</span>'
+          +   '<span class="di-price num">' + S.format(p.price) + (isEach(p) ? ' each' : ' / kg') + '</span>'
           +   '<div class="di-controls">'
           +     '<button class="qbtn" data-cq="' + id + '" data-d="-' + step + '" aria-label="Less">−</button>'
-          +     '<span class="qn num">' + fmtKg(kg) + '</span>'
+          +     '<span class="qn num">' + qtyText(p, kg) + '</span>'
           +     '<button class="qbtn" data-cq="' + id + '" data-d="' + step + '" aria-label="More">+</button>'
           +   '</div>'
           + '</div>'
@@ -185,7 +189,7 @@
     if (!ids.length) return;
     var lines = ids.map(function (id) {
       var p = S.productById(id);
-      return "• " + p.name + " — " + fmtKg(cart[id]) + " @ " + S.format(p.price) + "/kg = " + S.format(p.price * cart[id]);
+      return "• " + p.name + " — " + qtyText(p, cart[id]) + " @ " + S.format(p.price) + (isEach(p) ? "/ea" : "/kg") + " = " + S.format(p.price * cart[id]);
     });
     var sub = S.cartSubtotal(), del = S.deliveryFor(sub);
     var msg = "Hello " + b.name + ", I would like to order:\n\n"

@@ -379,7 +379,7 @@ table.pricelist td{padding:.6rem 1rem;border-bottom:1px solid var(--line);font-s
 table.pricelist tbody tr:last-child td{border-bottom:none}
 .pl-name span{color:var(--ink-faint);font-size:.82rem;font-style:italic}
 .pl-price{text-align:right;font-family:var(--display);font-weight:800;color:var(--brass);white-space:nowrap;font-variant-numeric:tabular-nums}
-.pl-price em{color:var(--warn);font-weight:600;font-size:.7rem;font-style:normal}
+.pl-price em{color:var(--ink-faint);font-weight:600;font-size:.68rem;font-style:normal;letter-spacing:.02em}
 .pl-out .pl-name{color:var(--ink-faint);text-decoration:line-through}
 
 @media print{

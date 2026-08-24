@@ -11,19 +11,18 @@
 The remaining product photos are royalty-free stock from **Wikimedia Commons**, used as placeholders.
 Each is licensed as noted below — keep this attribution if you keep the image, or replace it with your own photo (drop a file with the same name into `assets/img/`).
 
-> Cuts currently shown with a line-art icon (no photo yet): **T-Bone, Dry-Aged steak, Beef Fillet, Boneless Chicken, Drumsticks, Chicken Wings, Capons.** Add `assets/img/<id>.jpg` (e.g. `t-bone.jpg`) to give them a photo.
+> Cuts currently shown with a line-art icon (no photo yet): **Soup Bones, T-Bone, Beef Fillet, Boneless Chicken, Chicken Thighs, Drumsticks, Chicken Wings.** Add `assets/img/<id>.jpg` (e.g. `t-bone.jpg`, `drumsticks.jpg`) to give them a photo.
 >
 > ⚠️ Do **not** use watermark-removed or agency stock (Dreamstime, Vecteezy, company product shots) on the live site — it is copyright infringement. Use your own photos, AI-generated images, or properly-licensed stock.
 
 | File | Product | Title | License |
 |---|---|---|---|
 | `beef-bone-in.jpg` | Beef — Bone-in | [Raw Beef at Barkin Dogo Market 01.jpg](https://commons.wikimedia.org/wiki/File:Raw_Beef_at_Barkin_Dogo_Market_01.jpg) | CC BY-SA 4.0 |
-| `beef-boneless.jpg` | Beef — Boneless | [Assorted Raw Beef, Pork & Chicken Slices for Yakiniku.jpg](https://commons.wikimedia.org/wiki/File:Assorted_Raw_Beef%2C_Pork_%26_Chicken_Slices_for_Yakiniku.jpg) | CC BY-SA 4.0 |
+| `beef-boneless.jpg` | Ribeye Steak | [Assorted Raw Beef, Pork & Chicken Slices for Yakiniku.jpg](https://commons.wikimedia.org/wiki/File:Assorted_Raw_Beef%2C_Pork_%26_Chicken_Slices_for_Yakiniku.jpg) | CC BY-SA 4.0 |
 | `beef-mince.jpg` | Beef Mince | [Minced Beef.jpg](https://commons.wikimedia.org/wiki/File:Minced_Beef.jpg) | CC BY-SA 4.0 |
 | `goat.jpg` | Goat Meat | [Local Goat Meat Beef.jpg](https://commons.wikimedia.org/wiki/File:Local_Goat_Meat_Beef.jpg) | CC BY-SA 4.0 |
 | `mutton.jpg` | Mutton | [Raw lamb cutlets with shredded ginger and rosemary.jpg](https://commons.wikimedia.org/wiki/File:Raw_lamb_cutlets_with_shredded_ginger_and_rosemary.jpg) | CC BY-SA 3.0 |
-| `pork.jpg` | Pork | [Raw pork spareribs.jpg](https://commons.wikimedia.org/wiki/File:Raw_pork_spareribs.jpg) | Public domain |
-| `chicken-broiler.jpg` | Broiler Chicken | [Raw chicken for sale.jpg](https://commons.wikimedia.org/wiki/File:Raw_chicken_for_sale.jpg) | CC BY-SA 3.0 |
+| `chicken-broiler.jpg` | Capon (whole bird) | [Raw chicken for sale.jpg](https://commons.wikimedia.org/wiki/File:Raw_chicken_for_sale.jpg) | CC BY-SA 3.0 |
 | `chicken-kienyeji.jpg` | Kienyeji Chicken | [Raw leg chicken quarters.jpg](https://commons.wikimedia.org/wiki/File:Raw_leg_chicken_quarters.jpg) | CC BY-SA 4.0 |
 | `matumbo.jpg` | Matumbo (Tripe) | [Beef tripe.jpg](https://commons.wikimedia.org/wiki/File:Beef_tripe.jpg) | CC BY-SA 4.0 |
 
