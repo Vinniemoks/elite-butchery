@@ -19,15 +19,14 @@
 <header class="site">
   <div class="wrap bar">
     <a class="brand" href="#top" aria-label="Home">
-      <span class="mark" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a5 5 0 0 1 5-5h2l7-6v6l-4 3v5a3 3 0 0 1-3 3H8a4 4 0 0 1-4-4Z"/><circle cx="9.5" cy="15.5" r="1.4" fill="currentColor" stroke="none"/></svg>
-      </span>
+      <span class="mark logo-mark" aria-hidden="true"><img src="assets/img/logo.png" alt="" /></span>
       <span><b data-biz="name">Elite Butchery</b><span class="tag" data-biz="location">Uthiru, Nairobi</span></span>
     </a>
     <nav class="main" id="nav">
       <a href="#top">Home</a>
       <a href="#shop">Shop</a>
-      <a href="#mission">Mission</a>
+      <a href="#pricelist">Prices</a>
+      <a href="#mission">Quality</a>
       <a href="#reviews">Reviews</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -60,23 +59,13 @@
         <a class="btn btn--ghost" href="#mission">Our Mission</a>
       </div>
       <div class="trust">
-        <div><b data-biz="givebackPercent">10</b>% profit<br>gives back</div>
-        <div><b>Same-day</b>Nairobi<br>delivery</div>
-        <div><b>100%</b>fresh,<br>cut to order</div>
+        <div><b>Est. 2023</b>Uthiru,<br>Nairobi</div>
+        <div><b>Free</b>delivery<br>available</div>
+        <div><b>9am–10pm</b>open<br>daily</div>
       </div>
     </div>
-    <div class="heroart" aria-hidden="true">
-      <svg class="cleaver" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M40 32h96a10 10 0 0 1 10 10v58a10 10 0 0 1-10 10H58l-4 44a6 6 0 0 1-6 5h-4a6 6 0 0 1-6-6l6-121a10 10 0 0 1 2-10Z"/>
-        <path d="M146 60h26a8 8 0 0 1 8 8v6a8 8 0 0 1-8 8h-26"/>
-        <path d="M64 52v46M86 52v46M108 52v46" opacity=".55"/>
-      </svg>
-      <svg class="stamp" viewBox="0 0 120 120">
-        <circle class="ring" cx="60" cy="60" r="56"/><circle class="ring" cx="60" cy="60" r="44"/>
-        <path id="cir" d="M60,60 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0" fill="none"/>
-        <text font-family="Helvetica,Arial" font-size="10.5" font-weight="800" letter-spacing="3" fill="currentColor"><textPath href="#cir" startOffset="0">ELITE BUTCHERY · UTHIRU · EST 2023 · PREMIUM · </textPath></text>
-        <text x="60" y="66" text-anchor="middle" font-family="Helvetica,Arial" font-size="15" font-weight="800" fill="currentColor">KE</text>
-      </svg>
+    <div class="heroart heroart--logo">
+      <img class="hero-logo" src="assets/img/logo.png" alt="Elite Butchery — Premium Cuts, Quality Assured, Est. 2023" />
     </div>
   </div>
 </section>
@@ -108,9 +97,9 @@
         <p>Order by WhatsApp and have your cuts delivered across Nairobi — promptly packed and ready to cook.</p>
       </article>
       <article class="value reveal">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
-        <h3>Social Responsibility</h3>
-        <p>A portion of every profit supports underprivileged children and vulnerable groups through our foundation.</p>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <h3>Quality Assured</h3>
+        <p>Hygienically handled and cut to order every time — premium cuts you can trust, guaranteed fresh.</p>
       </article>
     </div>
   </div>
@@ -127,19 +116,34 @@
       </div>
       <div class="updated num" id="updated"></div>
     </div>
-    <div class="grid" id="shopGrid"><!-- products injected --></div>
+    <div id="shopGrid"><!-- products injected, grouped by category --></div>
+  </div>
+</section>
+
+<!-- PRICE LIST -->
+<section id="pricelist">
+  <div class="wrap">
+    <div class="shop-top">
+      <div class="sec-head reveal" style="margin-bottom:0">
+        <span class="eyebrow">Price list</span>
+        <h2>Full Price List</h2>
+        <p>All prices in Kenyan Shillings, <strong>per kilogram</strong>. Tap Print to save or print a copy for the shop.</p>
+      </div>
+      <button class="btn btn--ghost btn--sm" id="printPrices" type="button">🖨&nbsp; Print price list</button>
+    </div>
+    <div id="priceList" class="pricelist-wrap reveal"><!-- table injected --></div>
   </div>
 </section>
 
 <!-- MISSION -->
 <section id="mission">
   <div class="wrap">
-    <div class="bignum reveal" aria-hidden="true"><span data-biz="givebackPercent">10</span>%</div>
+    <div class="bignum reveal" aria-hidden="true">100%</div>
     <div class="reveal">
-      <span class="eyebrow">Our commitment to social impact</span>
-      <h2>Every order feeds more than dinner</h2>
-      <p>We believe in giving back. <span data-biz="givebackPercent">10</span>% of our profits go towards educating underprivileged children and supporting vulnerable groups in our community — so a good meal at your table helps build a better one for someone else.</p>
-      <a class="btn btn--brass" href="#contact">Get in Touch</a>
+      <span class="eyebrow">Premium cuts · Quality assured</span>
+      <h2>Meat to your table, done right</h2>
+      <p>Every cut is hand-selected, trimmed and prepared to order in our Uthiru shop — handled hygienically and delivered fresh across the neighbourhood. Premium quality, honest prices, free delivery and the convenience of paying on delivery.</p>
+      <a class="btn btn--brass" href="#pricelist">See Today's Prices</a>
     </div>
   </div>
 </section>
@@ -201,9 +205,13 @@
           <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="m3 6 9 7 9-7"/></svg>
           <div><b>Email</b><span><a data-biz-link="email" href="#">orders@elitebutchery.co.ke</a></span></div>
         </div>
-        <div class="mpesa">
+        <div class="infoitem">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h11v9H2z"/><path d="M13 11h4l3 3v3h-7z"/><circle cx="6.5" cy="18" r="1.5"/><circle cx="17.5" cy="18" r="1.5"/></svg>
+          <div><b>Delivery &amp; payment</b><span data-biz="deliveryNote">Free delivery available · Pay on delivery</span></div>
+        </div>
+        <div class="mpesa" id="mpesaBlock" hidden>
           <b>Pay with M-Pesa · Buy Goods</b>
-          <div class="till">Till <span data-biz="mpesaTill">000000</span></div>
+          <div class="till">Till <span data-biz="mpesaTill"></span></div>
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 /* =============================================================
-   Prime Cuts Butchery — styles (shared by storefront + admin)
+   Elite Butchery — styles (shared by storefront + admin)
    Palette: oxblood signature, brass accent, marble-bone ground.
    Theme-aware: system by default, overridable via [data-theme].
    ============================================================= */
@@ -346,3 +346,49 @@ table.admin .pname span{font-size:.76rem;color:var(--ink-faint);font-style:itali
 .loginerr{color:var(--oxblood);font-size:.85rem;min-height:1.2em;margin-bottom:.8rem}
 .note{font-size:.82rem;color:var(--ink-soft);background:var(--ground);border-left:3px solid var(--brass);padding:.7rem .9rem;border-radius:0 8px 8px 0;margin-top:1rem}
 .themetoggle{margin-left:.2rem}
+
+/* =============================================================
+   Logo, category groups, price list, print  (Elite Butchery)
+   ============================================================= */
+.logo-mark{background:transparent!important;box-shadow:none;width:auto;height:42px;border-radius:0}
+.logo-mark img{height:100%;width:auto;display:block}
+
+.heroart--logo{aspect-ratio:1;display:grid;place-items:center;
+  background:radial-gradient(circle at 50% 47%, #FBFAF7 0%, #FBFAF7 60%, rgba(251,250,247,.85) 66%, rgba(251,250,247,0) 71%)}
+.hero-logo{width:80%;filter:drop-shadow(0 14px 30px rgba(0,0,0,.4))}
+@media (max-width:820px){.heroart--logo{width:min(260px,60vw)}}
+
+/* category groups in the shop */
+.cat-group + .cat-group{margin-top:2.6rem}
+.cat-head{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--oxblood);
+  padding-bottom:.55rem;margin:0 0 1.2rem;display:flex;align-items:center;gap:.7rem}
+.cat-head::after{content:"";flex:1;height:2px;background:var(--line)}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+@media (max-width:900px){.cat-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.cat-grid{grid-template-columns:1fr}}
+
+/* price list */
+.pricelist-wrap{display:grid;grid-template-columns:repeat(2,1fr);gap:1.3rem 1.6rem;margin-top:1.6rem}
+@media (max-width:720px){.pricelist-wrap{grid-template-columns:1fr}}
+.pl-group{break-inside:avoid}
+table.pricelist{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm)}
+table.pricelist caption{caption-side:top;text-align:left;font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:.95rem;padding:.9rem 1rem .3rem;color:var(--ink)}
+table.pricelist th{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);text-align:left;padding:.45rem 1rem;border-bottom:1px solid var(--line)}
+table.pricelist th:last-child{text-align:right}
+table.pricelist td{padding:.6rem 1rem;border-bottom:1px solid var(--line);font-size:.92rem;vertical-align:baseline}
+table.pricelist tbody tr:last-child td{border-bottom:none}
+.pl-name span{color:var(--ink-faint);font-size:.82rem;font-style:italic}
+.pl-price{text-align:right;font-family:var(--display);font-weight:800;color:var(--brass);white-space:nowrap;font-variant-numeric:tabular-nums}
+.pl-price em{color:var(--warn);font-weight:600;font-size:.7rem;font-style:normal}
+.pl-out .pl-name{color:var(--ink-faint);text-decoration:line-through}
+
+@media print{
+  :root{--ground:#fff;--surface:#fff}
+  body *{visibility:hidden}
+  #pricelist,#pricelist *{visibility:visible}
+  #pricelist{position:absolute;inset:0;padding:1rem}
+  #printPrices,#pricelist .eyebrow{display:none!important}
+  #pricelist .sec-head p{display:none}
+  .pricelist-wrap{grid-template-columns:1fr 1fr}
+  table.pricelist{box-shadow:none;border:1px solid #ccc}
+}

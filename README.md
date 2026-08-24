@@ -93,11 +93,11 @@ Drag-and-drop the `Butchery` folder onto <https://app.netlify.com/drop>, or conn
 ## Before you go live — checklist
 
 - [ ] Change the admin **PIN** (Admin → *Admin PIN*)
-- [ ] Set the real **WhatsApp number** (digits only, e.g. `2547XXXXXXXX`), **phone**, **email**
-- [ ] Set the **M-Pesa Till** number
-- [ ] Confirm the **address**, **opening hours**, **delivery fee** and **free-delivery threshold**
-- [ ] Review the **prices per kg** and product list
-- [ ] Swap the stock **product photos** in `assets/img/` for your own (optional — see *Product photos*)
+- [x] Phone/WhatsApp **0718 509 658**, **open daily 9am–10pm**, **free delivery + pay on delivery** — set from your flyer; confirm they're correct
+- [ ] Confirm the **email** (`orders@elitebutchery.co.ke` is a placeholder) and the exact **street address** in Uthiru
+- [ ] Add an **M-Pesa Till** in Admin if you want it shown (blank = hidden; you're currently pay-on-delivery)
+- [ ] Confirm **Beef Fillet** price — you wrote *150*; set to **1,500/kg** as a likely typo. Also confirm unchanged prices: Mutton 820, Pork 560, Broiler 550, Matumbo 400
+- [ ] Add photos for the cuts still using icons (T-Bone, Aged, Fillet, Boneless Chicken, Drumsticks, Wings, Capons) — see `PHOTO_CREDITS.md`
 - [ ] Click **Export for deploy**, commit the new `assets/js/data.js`, and redeploy
 
 ## Security note

@@ -21,41 +21,78 @@
     });
     document.title = b.name + " — Fresh Meat Delivery in " + b.location;
     var yr = $("#year"); if (yr) yr.textContent = new Date().getFullYear();
+    // M-Pesa block only shows when a till is set
+    var mp = $("#mpesaBlock");
+    if (mp) { if (b.mpesaTill) { mp.hidden = false; } else { mp.hidden = true; } }
     // last updated
     var u = S.lastUpdated(), up = $("#updated");
     if (up) up.textContent = u ? "Prices updated " + new Date(u).toLocaleDateString("en-KE", { day: "numeric", month: "short", year: "numeric" }) : "";
   }
 
-  /* ---- render shop ---- */
+  /* ---- group products by category, preserving first-seen order ---- */
+  function grouped() {
+    var products = S.getProducts(), order = [], groups = {};
+    products.forEach(function (p) {
+      var c = p.category || "Other";
+      if (!groups[c]) { groups[c] = []; order.push(c); }
+      groups[c].push(p);
+    });
+    return { order: order, groups: groups };
+  }
+
+  function cardHtml(p) {
+    var out = p.available === false;
+    var step = p.step || 0.5, min = p.min || 0.5;
+    return '<article class="card reveal' + (out ? ' out' : '') + '">'
+      + '<div class="art">'
+      +   (p.tag ? '<span class="tagchip">' + esc(p.tag) + '</span>' : '')
+      +   (out ? '<span class="outchip">Out of stock</span>' : '')
+      +   S.icon(p.art)
+      +   (p.img ? '<img class="art-photo" src="' + esc(p.img) + '" alt="' + esc(p.name) + '" loading="lazy" onerror="this.remove()" />' : '')
+      + '</div>'
+      + '<div class="body">'
+      +   '<div class="top"><div><h3>' + esc(p.name) + '</h3>' + (p.swahili ? '<span class="sw">' + esc(p.swahili) + '</span>' : '') + '</div>'
+      +     '<span class="price num">' + S.format(p.price) + '<small>per kg</small></span></div>'
+      +   '<p class="desc">' + esc(p.desc || "") + '</p>'
+      +   (out ? '<button class="btn btn--ghost btn--block" disabled>Unavailable</button>'
+            : '<div class="buy">'
+              + '<div class="stepper" role="group" aria-label="Weight for ' + esc(p.name) + '">'
+              +   '<button type="button" data-step="' + p.id + '" data-d="-1" aria-label="Less">−</button>'
+              +   '<span class="val num" data-val="' + p.id + '" data-step-kg="' + step + '" data-min-kg="' + min + '">' + fmtKg(min) + '</span>'
+              +   '<button type="button" data-step="' + p.id + '" data-d="1" aria-label="More">+</button>'
+              + '</div>'
+              + '<button class="btn" data-add="' + p.id + '">Add</button>'
+            + '</div>')
+      + '</div></article>';
+  }
+
+  /* ---- render shop (grouped by category) ---- */
   var grid = $("#shopGrid");
   function renderShop() {
-    var products = S.getProducts();
-    grid.innerHTML = products.map(function (p) {
-      var out = p.available === false;
-      var step = p.step || 0.5, min = p.min || 0.5;
-      return '<article class="card reveal' + (out ? ' out' : '') + '">'
-        + '<div class="art">'
-        +   (p.tag ? '<span class="tagchip">' + esc(p.tag) + '</span>' : '')
-        +   (out ? '<span class="outchip">Out of stock</span>' : '')
-        +   S.icon(p.art)
-        +   (p.img ? '<img class="art-photo" src="' + esc(p.img) + '" alt="' + esc(p.name) + '" loading="lazy" onerror="this.remove()" />' : '')
-        + '</div>'
-        + '<div class="body">'
-        +   '<div class="top"><div><h3>' + esc(p.name) + '</h3>' + (p.swahili ? '<span class="sw">' + esc(p.swahili) + '</span>' : '') + '</div>'
-        +     '<span class="price num">' + S.format(p.price) + '<small>per kg</small></span></div>'
-        +   '<p class="desc">' + esc(p.desc || "") + '</p>'
-        +   (out ? '<button class="btn btn--ghost btn--block" disabled>Unavailable</button>'
-              : '<div class="buy">'
-                + '<div class="stepper" role="group" aria-label="Weight for ' + esc(p.name) + '">'
-                +   '<button type="button" data-step="' + p.id + '" data-d="-1" aria-label="Less">−</button>'
-                +   '<span class="val num" data-val="' + p.id + '" data-step-kg="' + step + '" data-min-kg="' + min + '">' + fmtKg(min) + '</span>'
-                +   '<button type="button" data-step="' + p.id + '" data-d="1" aria-label="More">+</button>'
-                + '</div>'
-                + '<button class="btn" data-add="' + p.id + '">Add</button>'
-              + '</div>')
-        + '</div></article>';
+    var g = grouped();
+    grid.innerHTML = g.order.map(function (cat) {
+      return '<div class="cat-group reveal">'
+        + '<h3 class="cat-head">' + esc(cat) + '</h3>'
+        + '<div class="cat-grid">' + g.groups[cat].map(cardHtml).join("") + '</div>'
+        + '</div>';
     }).join("");
     observeReveal();
+  }
+
+  /* ---- render printable price list ---- */
+  function renderPriceList() {
+    var el = $("#priceList"); if (!el) return;
+    var g = grouped();
+    el.innerHTML = g.order.map(function (cat) {
+      var rows = g.groups[cat].map(function (p) {
+        return '<tr' + (p.available === false ? ' class="pl-out"' : '') + '>'
+          + '<td class="pl-name">' + esc(p.name) + (p.swahili ? ' <span>(' + esc(p.swahili) + ')</span>' : '') + '</td>'
+          + '<td class="pl-price num">' + S.format(p.price) + (p.available === false ? ' <em>· out of stock</em>' : '') + '</td>'
+          + '</tr>';
+      }).join("");
+      return '<div class="pl-group"><table class="pricelist"><caption>' + esc(cat) + '</caption>'
+        + '<thead><tr><th>Cut</th><th>Price / kg</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+    }).join("");
   }
 
   function fmtKg(n) { return (Math.round(n * 100) / 100) + " kg"; }
@@ -125,12 +162,13 @@
     $("#total").textContent = S.format(sub + del);
     $("#checkout").disabled = sub === 0;
 
+    var pay = b.mpesaTill ? "Pay on delivery or via M-Pesa Till " + b.mpesaTill + "." : "Pay on delivery.";
     var hint = $("#dhint");
     if (sub === 0) hint.textContent = "Add cuts to start your order.";
-    else if (del === 0) hint.textContent = "You qualify for free delivery. Pay on delivery or via M-Pesa Till " + b.mpesaTill + ".";
+    else if (del === 0) hint.textContent = "Free delivery available. " + pay;
     else {
       var rem = Number(b.freeDeliveryThreshold) - sub;
-      hint.textContent = rem > 0 ? "Add " + S.format(rem) + " more for free delivery." : "Pay on delivery or via M-Pesa Till " + b.mpesaTill + ".";
+      hint.textContent = rem > 0 ? "Add " + S.format(rem) + " more for free delivery." : pay;
     }
   }
 
@@ -155,6 +193,7 @@
       + "\n\nSubtotal: " + S.format(sub)
       + "\nDelivery: " + (del === 0 ? "FREE" : S.format(del))
       + "\nTotal: " + S.format(sub + del)
+      + "\nPayment: " + (b.mpesaTill ? "Pay on delivery or M-Pesa Till " + b.mpesaTill : "Pay on delivery")
       + "\n\nName:\nDelivery location:\nPreferred time:";
     var num = (b.whatsapp || "").replace(/[^\d]/g, "");
     var url = "https://wa.me/" + num + "?text=" + encodeURIComponent(msg);
@@ -225,14 +264,19 @@
     $$(".reveal:not(.in)").forEach(function (el) { io.observe(el); });
   }
 
+  /* ---- print price list ---- */
+  var printBtn = $("#printPrices");
+  if (printBtn) printBtn.addEventListener("click", function () { window.print(); });
+
   /* ---- init ---- */
   bindBusiness();
   renderShop();
+  renderPriceList();
   render();
   observeReveal();
 
   // reflect admin edits made in another tab
   window.addEventListener("storage", function (e) {
-    if (e.key && e.key.indexOf("butchery_") === 0) { bindBusiness(); renderShop(); render(); }
+    if (e.key && e.key.indexOf("butchery_") === 0) { bindBusiness(); renderShop(); renderPriceList(); render(); }
   });
 })();
