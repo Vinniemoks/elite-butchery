@@ -289,16 +289,43 @@
       .replace(/[“”]/g, '"')
       .replace(/[^\x20-\x7E]/g, "");        // drop anything else non-ASCII
   }
+  function getLogoJpeg() {
+    try {
+      var img = document.querySelector(".hero-logo");
+      if (!img || !img.complete || !img.naturalWidth) return null;
+      var size = 300, c = document.createElement("canvas");
+      c.width = size; c.height = size;
+      var ctx = c.getContext("2d");
+      ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, size, size);
+      var s = Math.min(size / img.naturalWidth, size / img.naturalHeight);
+      var w = img.naturalWidth * s, h = img.naturalHeight * s;
+      ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h);
+      var b64 = c.toDataURL("image/jpeg", 0.92).split(",")[1];
+      var bin = atob(b64), bytes = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      return { bytes: bytes, w: size, h: size };
+    } catch (e) { return null; }
+  }
   function buildPriceListPDF() {
     var b = S.getBusiness(), g = grouped(), cmd = [];
     var C = { ox: "0.541 0.133 0.200", brass: "0.663 0.471 0.122", ink: "0.13 0.10 0.10", grey: "0.42 0.40 0.38", ln: "0.85 0.83 0.80" };
     function T(x, y, f, s, rgb, str) { cmd.push("BT /" + f + " " + s + " Tf " + rgb + " rg " + x + " " + y + " Td (" + pdfEsc(pdfAscii(str)) + ") Tj ET"); }
     function rule(x1, x2, y) { cmd.push(C.ln + " RG 0.6 w " + x1 + " " + y + " m " + x2 + " " + y + " l S"); }
-    var mL = 56, mR = 539, priceX = 452, y = 792;
-    T(mL, y, "F2", 22, C.ox, b.name); y -= 19;
-    T(mL, y, "F1", 11, C.brass, "Price List  -  KES per kilogram"); y -= 14;
-    T(mL, y, "F1", 9, C.grey, b.address + "    " + b.phone + "    " + b.hours); y -= 12;
-    rule(mL, mR, y); y -= 20;
+    var mL = 56, mR = 539, priceX = 452, y;
+    var logo = getLogoJpeg();
+    if (logo) {
+      var ls = 74, lx = mL, ly = 842 - 30 - ls;
+      cmd.push("q " + ls + " 0 0 " + ls + " " + lx + " " + ly + " cm /Im0 Do Q");
+      T(mL + 88, ly + 48, "F2", 16, C.ox, b.name);
+      T(mL + 88, ly + 30, "F1", 10, C.brass, "Price List  -  KES per kilogram");
+      T(mL + 88, ly + 16, "F1", 8.5, C.grey, b.address + "    " + b.phone);
+      rule(mL, mR, ly - 10); y = ly - 30;
+    } else {
+      T(mL, 792, "F2", 22, C.ox, b.name);
+      T(mL, 773, "F1", 11, C.brass, "Price List  -  KES per kilogram");
+      T(mL, 761, "F1", 9, C.grey, b.address + "    " + b.phone + "    " + b.hours);
+      rule(mL, mR, 749); y = 729;
+    }
     g.order.forEach(function (cat) {
       T(mL, y, "F2", 12, C.ox, cat.toUpperCase());
       rule(mL, mR, y - 6); y -= 19;
@@ -315,24 +342,33 @@
     T(mL, 62, "F1", 8.5, C.grey, b.deliveryNote);
     T(mL, 51, "F1", 8, C.grey, "Generated " + new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }));
     var content = cmd.join("\n");
-    var objs = [null,
-      "<< /Type /Catalog /Pages 2 0 R >>",
-      "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
-      "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>",
-      "<< /Length " + content.length + " >>\nstream\n" + content + "\nendstream",
-      "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>",
-      "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>"
-    ];
-    var pdf = "%PDF-1.4\n", off = [];
-    for (var i = 1; i < objs.length; i++) { off[i] = pdf.length; pdf += i + " 0 obj\n" + objs[i] + "\nendobj\n"; }
-    var xref = pdf.length;
-    pdf += "xref\n0 " + objs.length + "\n0000000000 65535 f \n";
-    for (var j = 1; j < objs.length; j++) { pdf += ("0000000000" + off[j]).slice(-10) + " 00000 n \n"; }
-    pdf += "trailer\n<< /Size " + objs.length + " /Root 1 0 R >>\nstartxref\n" + xref + "\n%%EOF";
-    return pdf;
+
+    // ---- assemble the PDF (binary-safe, so the JPEG logo survives) ----
+    function enc(s) { var u = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) u[i] = s.charCodeAt(i) & 255; return u; }
+    var parts = [], total = 0, off = [];
+    function put(x) { var u = (x instanceof Uint8Array) ? x : enc(x); parts.push(u); total += u.length; }
+    function objText(n, body) { off[n] = total; put(n + " 0 obj\n" + body + "\nendobj\n"); }
+    function objStream(n, dict, bytes) { off[n] = total; put(n + " 0 obj\n" + dict + "\nstream\n"); put(bytes); put("\nendstream\nendobj\n"); }
+    var contentBytes = enc(content);
+    var pageDict = "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 5 0 R /F2 6 0 R >>"
+      + (logo ? " /XObject << /Im0 7 0 R >>" : "") + " >> /Contents 4 0 R >>";
+    put("%PDF-1.4\n");
+    objText(1, "<< /Type /Catalog /Pages 2 0 R >>");
+    objText(2, "<< /Type /Pages /Kids [3 0 R] /Count 1 >>");
+    objText(3, pageDict);
+    objStream(4, "<< /Length " + contentBytes.length + " >>", contentBytes);
+    objText(5, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>");
+    objText(6, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>");
+    if (logo) objStream(7, "<< /Type /XObject /Subtype /Image /Width " + logo.w + " /Height " + logo.h + " /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length " + logo.bytes.length + " >>", logo.bytes);
+    var count = logo ? 7 : 6, xref = total;
+    put("xref\n0 " + (count + 1) + "\n0000000000 65535 f \n");
+    for (var i = 1; i <= count; i++) put(("0000000000" + off[i]).slice(-10) + " 00000 n \n");
+    put("trailer\n<< /Size " + (count + 1) + " /Root 1 0 R >>\nstartxref\n" + xref + "\n%%EOF");
+    var out = new Uint8Array(total), pos = 0;
+    parts.forEach(function (p) { out.set(p, pos); pos += p.length; });
+    return out;
   }
-  var dlBtn = $("#downloadPrices"), pdfNote = $("#pdfNote");
-  if (dlBtn) dlBtn.addEventListener("click", function () {
+  function downloadPDF(noteEl) {
     try {
       var blob = new Blob([buildPriceListPDF()], { type: "application/pdf" });
       var url = URL.createObjectURL(blob);
@@ -341,9 +377,24 @@
       a.href = url; a.download = fname; a.target = "_blank"; a.rel = "noopener";
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(function () { URL.revokeObjectURL(url); }, 5000);
-      if (pdfNote) { pdfNote.textContent = "Downloaded ✓"; setTimeout(function () { pdfNote.textContent = ""; }, 4000); }
-    } catch (e) { if (pdfNote) pdfNote.textContent = "Couldn't generate the PDF"; }
+      if (noteEl) { noteEl.textContent = "Downloaded ✓"; setTimeout(function () { noteEl.textContent = ""; }, 4000); }
+    } catch (e) { if (noteEl) noteEl.textContent = "Couldn't generate the PDF"; }
+  }
+  $$("#downloadPrices, .js-download-pdf").forEach(function (btn) {
+    btn.addEventListener("click", function () { downloadPDF($("#pdfNote")); });
   });
+
+  /* ---- hero "why" flashcards cycler ---- */
+  (function () {
+    var wrap = $("#whycards"); if (!wrap) return;
+    var cards = $$(".whycard", wrap), dots = $$(".whydots i", wrap), idx = 0;
+    if (cards.length < 2) return;
+    setInterval(function () {
+      cards[idx].classList.remove("is-active"); if (dots[idx]) dots[idx].classList.remove("is-active");
+      idx = (idx + 1) % cards.length;
+      cards[idx].classList.add("is-active"); if (dots[idx]) dots[idx].classList.add("is-active");
+    }, 3600);
+  })();
 
   /* ---- init ---- */
   bindBusiness();
