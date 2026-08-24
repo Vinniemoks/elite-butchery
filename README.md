@@ -96,8 +96,9 @@ Drag-and-drop the `Butchery` folder onto <https://app.netlify.com/drop>, or conn
 - [x] Phone/WhatsApp **0718 509 658**, **open daily 9am–11pm**, **free delivery + pay on delivery** — set from your flyer; confirm they're correct
 - [ ] Confirm the **email** (`orders@elitebutchery.co.ke` is a placeholder) and the exact **street address** in Uthiru
 - [ ] Add an **M-Pesa Till** in Admin if you want it shown (blank = hidden; you're currently pay-on-delivery)
-- [ ] Confirm **Beef Fillet** price — you wrote *150*; set to **1,500/kg** as a likely typo. Also confirm unchanged prices: Mutton 820, Pork 560, Broiler 550, Matumbo 400
-- [ ] Add photos for the cuts still using icons (T-Bone, Aged, Fillet, Boneless Chicken, Drumsticks, Wings, Capons) — see `PHOTO_CREDITS.md`
+- [ ] Confirm the two **placeholder prices**: Soup Bones (KSh 300/kg) and Chicken Thighs (KSh 780/kg)
+- [ ] Decide whether to re-add **Mutton** and **Matumbo** (removed to match the flyer; say the word and I'll add them back)
+- [ ] Add photos for the cuts still using icons (Soup Bones, T-Bone, Beef Fillet, Boneless Chicken, Chicken Thighs, Drumsticks, Wings) — see `PHOTO_CREDITS.md`
 - [ ] Click **Export for deploy**, commit the new `assets/js/data.js`, and redeploy
 
 ## Security note
