@@ -15,7 +15,7 @@ window.BUTCHERY_DEFAULTS = {
     address: "Uthiru, Nairobi, Kenya",
     phone: "+254 718 509 658",
     whatsapp: "254718509658",          // digits only, country code first, no +
-    mpesaTill: "",                     // add your M-Pesa Buy Goods till to show it; blank = hidden
+    mpesaTill: "4094694",              // M-Pesa Buy Goods till (registered "Savvy Vendors"); blank = hidden
     email: "orders@elitebutchery.co.ke",
     hours: "Open daily: 9:00am – 11:00pm",
     wholesale: "Hotels, butcheries & events — carcass and bulk rates on request.",

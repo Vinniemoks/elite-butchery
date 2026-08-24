@@ -314,17 +314,19 @@
     var mL = 56, mR = 539, priceX = 452, y;
     var logo = getLogoJpeg();
     if (logo) {
-      var ls = 74, lx = mL, ly = 842 - 30 - ls;
+      var ls = 76, lx = mL, ly = 842 - 28 - ls;
       cmd.push("q " + ls + " 0 0 " + ls + " " + lx + " " + ly + " cm /Im0 Do Q");
-      T(mL + 88, ly + 48, "F2", 16, C.ox, b.name);
-      T(mL + 88, ly + 30, "F1", 10, C.brass, "Price List  -  KES per kilogram");
-      T(mL + 88, ly + 16, "F1", 8.5, C.grey, b.address + "    " + b.phone);
+      T(mL + 90, ly + 54, "F2", 16, C.ox, b.name);
+      T(mL + 90, ly + 38, "F1", 10, C.brass, "Price List  -  KES per kilogram");
+      T(mL + 90, ly + 24, "F1", 8.5, C.grey, b.address + "    " + b.phone);
+      if (b.mpesaTill) T(mL + 90, ly + 9, "F2", 9.5, C.ox, "M-Pesa Buy Goods Till:  " + b.mpesaTill);
       rule(mL, mR, ly - 10); y = ly - 30;
     } else {
       T(mL, 792, "F2", 22, C.ox, b.name);
       T(mL, 773, "F1", 11, C.brass, "Price List  -  KES per kilogram");
       T(mL, 761, "F1", 9, C.grey, b.address + "    " + b.phone + "    " + b.hours);
-      rule(mL, mR, 749); y = 729;
+      if (b.mpesaTill) { T(mL, 747, "F2", 10, C.ox, "M-Pesa Buy Goods Till:  " + b.mpesaTill); rule(mL, mR, 736); y = 718; }
+      else { rule(mL, mR, 749); y = 729; }
     }
     g.order.forEach(function (cat) {
       T(mL, y, "F2", 12, C.ox, cat.toUpperCase());
