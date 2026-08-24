@@ -35,13 +35,13 @@ window.BUTCHERY_DEFAULTS = {
       desc: "Freshly cut quality beef — ideal for stews, wet fry and hearty family meals." },
     { id: "beef-mince",     name: "Minced Meat",       swahili: "Kima",             category: "Beef",    art: "mince", img: "assets/img/beef-mince.jpg",    unit: "kg", price: 880,  step: 0.5, min: 0.5, available: true, tag: "",
       desc: "Freshly ground lean beef for keema, burgers, samosas, bolognese and more." },
-    { id: "soup-bones",     name: "Soup Bones",        swahili: "Mifupa",           category: "Beef",    art: "beef",  img: "",                             unit: "kg", price: 250,  step: 0.5, min: 0.5, available: true, tag: "",
+    { id: "soup-bones",     name: "Soup Bones",        swahili: "Mifupa",           category: "Beef",    art: "beef",  img: "assets/img/soup-bones.jpg",                             unit: "kg", price: 250,  step: 0.5, min: 0.5, available: true, tag: "",
       desc: "Meaty beef bones for rich, nourishing soups and broths." },
-    { id: "t-bone",         name: "T-Bone Steak",      swahili: "",                 category: "Beef",    art: "steak", img: "",                             unit: "kg", price: 980,  step: 0.5, min: 0.5, available: true, tag: "Steakhouse",
+    { id: "t-bone",         name: "T-Bone Steak",      swahili: "",                 category: "Beef",    art: "steak", img: "assets/img/t-bone.jpg",                             unit: "kg", price: 980,  step: 0.5, min: 0.5, available: true, tag: "Steakhouse",
       desc: "Classic bone-in steak — tenderloin one side, strip the other. Built for the grill." },
     { id: "ribeye",         name: "Ribeye Steak",      swahili: "",                 category: "Beef",    art: "steak", img: "assets/img/ribeye.jpg",        unit: "kg", price: 980,  step: 0.5, min: 0.5, available: true, tag: "Steakhouse",
       desc: "Beautifully marbled and full-flavoured — the classic steak for grilling or pan-searing." },
-    { id: "beef-fillet",    name: "Beef Fillet",       swahili: "",                 category: "Beef",    art: "steak", img: "",                             unit: "kg", price: 1500, step: 0.5, min: 0.5, available: true, tag: "Premium",
+    { id: "beef-fillet",    name: "Beef Fillet",       swahili: "",                 category: "Beef",    art: "steak", img: "assets/img/beef-fillet.jpg",                             unit: "kg", price: 1500, step: 0.5, min: 0.5, available: true, tag: "Premium",
       desc: "The most tender cut of all — lean, boneless and buttery. Ideal for fillet steaks and roasts." },
 
     /* ---------------- GOAT ---------------- */
@@ -59,11 +59,11 @@ window.BUTCHERY_DEFAULTS = {
       desc: "Plump, tender whole capon — a richer, meatier bird. Sold whole (KSh 600) or half (KSh 300)." },
     { id: "chicken-boneless", name: "Boneless Chicken", swahili: "",                category: "Chicken", art: "chicken", img: "assets/img/chicken-boneless.jpg", unit: "kg", price: 880,  step: 0.5, min: 0.5, available: true, tag: "",
       desc: "Skinless, boneless chicken fillets — quick to cook and perfect for any recipe." },
-    { id: "chicken-thighs", name: "Chicken Thighs",    swahili: "",                 category: "Chicken", art: "chicken", img: "",                            unit: "kg", price: 830,  step: 0.5, min: 0.5, available: true, tag: "",
+    { id: "chicken-thighs", name: "Chicken Thighs",    swahili: "",                 category: "Chicken", art: "chicken", img: "assets/img/chicken-thighs.jpg",                            unit: "kg", price: 830,  step: 0.5, min: 0.5, available: true, tag: "",
       desc: "Juicy bone-in thighs — full of flavour for frying, roasting and stews." },
     { id: "drumsticks",     name: "Chicken Drumsticks", swahili: "",                category: "Chicken", art: "chicken", img: "assets/img/drumsticks.jpg",   unit: "kg", price: 780,  step: 0.5, min: 0.5, available: true, tag: "",
       desc: "A family favourite — bone-in drumsticks for frying, roasting and stews." },
-    { id: "chicken-wings",  name: "Chicken Wings",     swahili: "",                 category: "Chicken", art: "chicken", img: "",                            unit: "kg", price: 750,  step: 0.5, min: 0.5, available: true, tag: "",
+    { id: "chicken-wings",  name: "Chicken Wings",     swahili: "",                 category: "Chicken", art: "chicken", img: "assets/img/chicken-wings.jpg",                            unit: "kg", price: 750,  step: 0.5, min: 0.5, available: true, tag: "",
       desc: "Fresh chicken wings — perfect for grilling, frying and party platters." },
 
     /* ---------------- OFFAL ---------------- */
