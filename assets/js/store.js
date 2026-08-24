@@ -121,7 +121,8 @@
     chicken: '<svg viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M42 8a13 13 0 0 0-20 16l-9 9a5 5 0 0 0 7 7l9-9A13 13 0 0 0 42 8Z"/><path d="m14 34-5 2 2 5"/></svg>',
     mince:   '<svg viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 30h44v2a10 10 0 0 1-10 10H20a10 10 0 0 1-10-10Z"/><path d="M14 30c0-8 8-12 18-12s18 4 18 12"/><path d="M24 20l3-4M34 19l3-5M43 21l3-4" opacity=".7"/></svg>',
     offal:   '<svg viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8c8 0 12 5 12 11 0 5-4 8-4 13a8 8 0 0 1-16 0c0-5-4-8-4-13C20 13 24 8 32 8Z"/><path d="M32 14c3 4 3 9 0 13" opacity=".55"/></svg>',
-    steak:   '<svg viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6c14-4 34 0 38 12s-8 24-28 24S2 34 6 22 12 8 20 6Z"/></svg>'
+    steak:   '<svg viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6c14-4 34 0 38 12s-8 24-28 24S2 34 6 22 12 8 20 6Z"/></svg>',
+    fish:    '<svg viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 24c6-9 20-14 34-11 6 1.3 11 4 16 11-5 7-10 9.7-16 11-14 3-28-2-34-11Z"/><path d="M12 24 4 15v18l8-9Z"/><circle cx="50" cy="21" r="1.5" fill="currentColor" stroke="none"/><path d="M34 17c3 4 3 10 0 14" opacity=".5"/></svg>'
   };
   function icon(name) { return ICONS[name] || ICONS.beef; }
 

@@ -35,8 +35,12 @@ window.BUTCHERY_DEFAULTS = {
       desc: "Freshly cut quality beef — ideal for stews, wet fry and hearty family meals." },
     { id: "beef-mince",     name: "Minced Meat",       swahili: "Kima",             category: "Beef",    art: "mince", img: "assets/img/beef-mince.jpg",    unit: "kg", price: 880,  step: 0.5, min: 0.5, available: true, tag: "",
       desc: "Freshly ground lean beef for keema, burgers, samosas, bolognese and more." },
-    { id: "soup-bones",     name: "Soup Bones",        swahili: "Mifupa",           category: "Beef",    art: "beef",  img: "assets/img/soup-bones.jpg",                             unit: "kg", price: 250,  step: 0.5, min: 0.5, available: true, tag: "",
+    { id: "soup-bones",     name: "Soup Bones",        swahili: "Mifupa",           category: "Beef",    art: "beef",  img: "assets/img/soup-bones.jpg",    unit: "kg", price: 250,  step: 0.5, min: 0.5, available: true, tag: "",
       desc: "Meaty beef bones for rich, nourishing soups and broths." },
+    { id: "beef-blade",     name: "Beef Blade",        swahili: "Gichiri",          category: "Beef",    art: "beef",  img: "assets/img/beef-blade.jpg",    unit: "kg", price: 870,  step: 0.5, min: 0.5, available: true, tag: "",
+      desc: "Bone-in blade (gichiri) — richly flavoured shoulder cut, excellent for stews and wet fry." },
+    { id: "ossobuco",       name: "Ossobuco",          swahili: "",                 category: "Beef",    art: "beef",  img: "assets/img/ossobuco.jpg",      unit: "kg", price: 880,  step: 0.5, min: 0.5, available: true, tag: "",
+      desc: "Cross-cut beef shank with marrow bone — perfect for slow-braised ossobuco and rich stews." },
     { id: "t-bone",         name: "T-Bone Steak",      swahili: "",                 category: "Beef",    art: "steak", img: "assets/img/t-bone.jpg",                             unit: "kg", price: 980,  step: 0.5, min: 0.5, available: true, tag: "Steakhouse",
       desc: "Classic bone-in steak — tenderloin one side, strip the other. Built for the grill." },
     { id: "ribeye",         name: "Ribeye Steak",      swahili: "",                 category: "Beef",    art: "steak", img: "assets/img/ribeye.jpg",        unit: "kg", price: 980,  step: 0.5, min: 0.5, available: true, tag: "Steakhouse",
@@ -68,6 +72,12 @@ window.BUTCHERY_DEFAULTS = {
 
     /* ---------------- OFFAL ---------------- */
     { id: "liver",          name: "Liver",             swahili: "Maini",            category: "Offal",   art: "offal", img: "assets/img/liver.jpg",         unit: "kg", price: 850,  step: 0.5, min: 0.5, available: true, tag: "",
-      desc: "Fresh, iron-rich liver — pan-fry with onions or add to a hearty stew." }
+      desc: "Fresh, iron-rich liver — pan-fry with onions or add to a hearty stew." },
+
+    /* ---------------- FISH ---------------- */
+    { id: "fish-fillet",    name: "Fish Fillet",       swahili: "",                 category: "Fish",    art: "fish",  img: "assets/img/fish-fillet.jpg",   unit: "kg",   price: 1250, step: 0.5, min: 0.5, available: true, tag: "",
+      desc: "Fresh, boneless fish fillet — clean and firm, ready for frying, grilling or curries." },
+    { id: "tilapia",        name: "Fresh Tilapia",     swahili: "Ngege",            category: "Fish",    art: "fish",  img: "assets/img/tilapia.jpg",       unit: "each", price: 200,  step: 1,   min: 1,   available: true, tag: "", priceNote: "from · priced by size",
+      desc: "Whole fresh tilapia — from KSh 200 per piece, priced by size. Cleaned on request." }
   ]
 };
