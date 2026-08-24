@@ -353,15 +353,17 @@ table.admin .pname span{font-size:.76rem;color:var(--ink-faint);font-style:itali
 .logo-mark{background:transparent!important;box-shadow:none;width:auto;height:52px;border-radius:0}
 .logo-mark img{height:100%;width:auto;display:block}
 
-.heroart--seal{position:relative;width:min(340px,72vw);aspect-ratio:1;display:grid;place-items:center;margin-inline:auto;
+.heroart--seal{position:relative;width:min(370px,76vw);aspect-ratio:1;display:grid;place-items:center;margin-inline:auto;
   transform-origin:50% 50%;animation:seal-spin 26s linear infinite}
-.seal{position:absolute;inset:0;width:100%;height:100%;color:var(--brass-soft)}
+.heroart--seal::before{content:"";position:absolute;inset:0;border-radius:50%;z-index:0;
+  background:radial-gradient(circle at 50% 50%, rgba(251,247,240,.16) 0%, rgba(251,247,240,.09) 30%, rgba(251,247,240,0) 45%)}
+.seal{position:absolute;inset:0;width:100%;height:100%;color:var(--brass-soft);z-index:1}
 .seal-ring{fill:none;stroke:currentColor;stroke-width:1;opacity:.6}
-.seal-text{font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:2.5px;fill:currentColor}
-.hero-logo{position:relative;z-index:1;width:64%;filter:drop-shadow(0 12px 26px rgba(0,0,0,.55))}
+.seal-text{font-family:var(--display);font-weight:800;font-size:12.5px;letter-spacing:3px;fill:currentColor}
+.hero-logo{position:relative;z-index:2;width:70%;filter:drop-shadow(0 10px 22px rgba(0,0,0,.5))}
 @keyframes seal-spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.heroart--seal{animation:none}}
-@media (max-width:820px){.heroart--seal{width:min(260px,62vw)}}
+@media (max-width:820px){.heroart--seal{width:min(290px,68vw)}}
 
 /* category groups in the shop */
 .cat-group + .cat-group{margin-top:2.6rem}
@@ -372,31 +374,23 @@ table.admin .pname span{font-size:.76rem;color:var(--ink-faint);font-style:itali
 @media (max-width:900px){.cat-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:560px){.cat-grid{grid-template-columns:1fr}}
 
-/* price list */
-.pricelist-wrap{display:grid;grid-template-columns:repeat(2,1fr);gap:1.3rem 1.6rem;margin-top:1.6rem}
-@media (max-width:720px){.pricelist-wrap{grid-template-columns:1fr}}
-.pl-group{break-inside:avoid}
-table.pricelist{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm)}
-table.pricelist caption{caption-side:top;text-align:left;font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:.95rem;padding:.9rem 1rem .3rem;color:var(--ink)}
-table.pricelist th{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);text-align:left;padding:.45rem 1rem;border-bottom:1px solid var(--line)}
-table.pricelist th:last-child{text-align:right}
-table.pricelist td{padding:.6rem 1rem;border-bottom:1px solid var(--line);font-size:.92rem;vertical-align:baseline}
-table.pricelist tbody tr:last-child td{border-bottom:none}
-.pl-name span{color:var(--ink-faint);font-size:.82rem;font-style:italic}
-.pl-price{text-align:right;font-family:var(--display);font-weight:800;color:var(--brass);white-space:nowrap;font-variant-numeric:tabular-nums}
-.pl-price em{color:var(--ink-faint);font-weight:600;font-size:.68rem;font-style:normal;letter-spacing:.02em}
-.pl-out .pl-name{color:var(--ink-faint);text-decoration:line-through}
-
-@media print{
-  :root{--ground:#fff;--surface:#fff}
-  body *{visibility:hidden}
-  #pricelist,#pricelist *{visibility:visible}
-  #pricelist{position:absolute;inset:0;padding:1rem}
-  #printPrices,#pricelist .eyebrow{display:none!important}
-  #pricelist .sec-head p{display:none}
-  .pricelist-wrap{grid-template-columns:1fr 1fr}
-  table.pricelist{box-shadow:none;border:1px solid #ccc}
-}
+/* price list — download card */
+.pricecard{display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-sm);
+  padding:clamp(1.5rem,4vw,2.6rem)}
+.pricecard-body h2{font-size:clamp(1.7rem,3.6vw,2.4rem);text-transform:uppercase;margin:.6rem 0 .6rem}
+.pricecard-body p{color:var(--ink-soft);font-size:1.02rem;max-width:46ch}
+.pricecard-actions{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:1.3rem}
+.pricecard-note{font-size:.82rem;color:var(--good);font-weight:600}
+.pricecard-visual{display:grid;place-items:center}
+.pl-sheet{width:min(230px,72%);aspect-ratio:3/4;background:#fff;border:1px solid var(--line);border-radius:10px;
+  box-shadow:var(--shadow-md);padding:1.1rem 1.1rem;display:flex;flex-direction:column;gap:.5rem;transform:rotate(-3deg);color:#201A19}
+.pl-sheet-title{font-family:var(--display);font-weight:800;font-size:.8rem;letter-spacing:.04em;color:#8A2233}
+.pl-sheet-sub{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#8A7F79;border-bottom:1.5px solid #ECE7DF;padding-bottom:.5rem}
+.pl-row{display:flex;align-items:center;justify-content:space-between;gap:.6rem;border-bottom:1px dotted #DED7CD;padding-bottom:.35rem}
+.pl-row i{height:6px;border-radius:3px;background:#ECE7DF;flex:1}
+.pl-row b{font-family:var(--display);font-weight:800;font-size:.78rem;color:#A9781F;font-variant-numeric:tabular-nums}
+@media (max-width:760px){.pricecard{grid-template-columns:1fr}.pricecard-visual{order:-1}.pl-sheet{transform:none;width:min(200px,60%)}}
 
 /* checkout details fields in the cart drawer */
 .dform{display:grid;gap:.5rem;margin-bottom:.9rem}

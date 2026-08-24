@@ -278,9 +278,72 @@
     $$(".reveal:not(.in)").forEach(function (el) { io.observe(el); });
   }
 
-  /* ---- print price list ---- */
-  var printBtn = $("#printPrices");
-  if (printBtn) printBtn.addEventListener("click", function () { window.print(); });
+  /* ---- downloadable PDF price list (vanilla, no libraries) ---- */
+  function pdfEsc(s) { return String(s).replace(/([\\()])/g, "\\$1"); }
+  function pdfAscii(s) {
+    return String(s)
+      .replace(/[‒-―]/g, "-")     // figure/en/em dashes
+      .replace(/·/g, "-")              // middle dot
+      .replace(/≤/g, "<=")
+      .replace(/[‘’]/g, "'")
+      .replace(/[“”]/g, '"')
+      .replace(/[^\x20-\x7E]/g, "");        // drop anything else non-ASCII
+  }
+  function buildPriceListPDF() {
+    var b = S.getBusiness(), g = grouped(), cmd = [];
+    var C = { ox: "0.541 0.133 0.200", brass: "0.663 0.471 0.122", ink: "0.13 0.10 0.10", grey: "0.42 0.40 0.38", ln: "0.85 0.83 0.80" };
+    function T(x, y, f, s, rgb, str) { cmd.push("BT /" + f + " " + s + " Tf " + rgb + " rg " + x + " " + y + " Td (" + pdfEsc(pdfAscii(str)) + ") Tj ET"); }
+    function rule(x1, x2, y) { cmd.push(C.ln + " RG 0.6 w " + x1 + " " + y + " m " + x2 + " " + y + " l S"); }
+    var mL = 56, mR = 539, priceX = 452, y = 792;
+    T(mL, y, "F2", 22, C.ox, b.name); y -= 19;
+    T(mL, y, "F1", 11, C.brass, "Price List  -  KES per kilogram"); y -= 14;
+    T(mL, y, "F1", 9, C.grey, b.address + "    " + b.phone + "    " + b.hours); y -= 12;
+    rule(mL, mR, y); y -= 20;
+    g.order.forEach(function (cat) {
+      T(mL, y, "F2", 12, C.ox, cat.toUpperCase());
+      rule(mL, mR, y - 6); y -= 19;
+      g.groups[cat].forEach(function (p) {
+        var nm = p.name + (p.swahili ? "  (" + p.swahili + ")" : "");
+        var pr = "KSh " + Math.round(p.price).toLocaleString("en-US") + (isEach(p) ? "  each" : "  / kg");
+        T(mL + 4, y, "F1", 10.5, C.ink, nm);
+        T(priceX, y, "F2", 10.5, C.brass, pr);
+        y -= 15.5;
+      });
+      y -= 8;
+    });
+    rule(mL, mR, 74);
+    T(mL, 62, "F1", 8.5, C.grey, b.deliveryNote);
+    T(mL, 51, "F1", 8, C.grey, "Generated " + new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }));
+    var content = cmd.join("\n");
+    var objs = [null,
+      "<< /Type /Catalog /Pages 2 0 R >>",
+      "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+      "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>",
+      "<< /Length " + content.length + " >>\nstream\n" + content + "\nendstream",
+      "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>",
+      "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>"
+    ];
+    var pdf = "%PDF-1.4\n", off = [];
+    for (var i = 1; i < objs.length; i++) { off[i] = pdf.length; pdf += i + " 0 obj\n" + objs[i] + "\nendobj\n"; }
+    var xref = pdf.length;
+    pdf += "xref\n0 " + objs.length + "\n0000000000 65535 f \n";
+    for (var j = 1; j < objs.length; j++) { pdf += ("0000000000" + off[j]).slice(-10) + " 00000 n \n"; }
+    pdf += "trailer\n<< /Size " + objs.length + " /Root 1 0 R >>\nstartxref\n" + xref + "\n%%EOF";
+    return pdf;
+  }
+  var dlBtn = $("#downloadPrices"), pdfNote = $("#pdfNote");
+  if (dlBtn) dlBtn.addEventListener("click", function () {
+    try {
+      var blob = new Blob([buildPriceListPDF()], { type: "application/pdf" });
+      var url = URL.createObjectURL(blob);
+      var fname = (S.getBusiness().name.replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "") || "Elite-Butchery") + "-Price-List.pdf";
+      var a = document.createElement("a");
+      a.href = url; a.download = fname; a.target = "_blank"; a.rel = "noopener";
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 5000);
+      if (pdfNote) { pdfNote.textContent = "Downloaded ✓"; setTimeout(function () { pdfNote.textContent = ""; }, 4000); }
+    } catch (e) { if (pdfNote) pdfNote.textContent = "Couldn't generate the PDF"; }
+  });
 
   /* ---- init ---- */
   bindBusiness();

@@ -66,10 +66,10 @@
     </div>
     <div class="heroart heroart--seal">
       <svg class="seal" viewBox="0 0 200 200" aria-hidden="true">
-        <defs><path id="sealpath" d="M100,100 m-84,0 a84,84 0 1,1 168,0 a84,84 0 1,1 -168,0" fill="none"/></defs>
+        <defs><path id="sealpath" d="M100,100 m-87,0 a87,87 0 1,1 174,0 a87,87 0 1,1 -174,0" fill="none"/></defs>
         <circle class="seal-ring" cx="100" cy="100" r="98"/>
-        <circle class="seal-ring" cx="100" cy="100" r="71"/>
-        <text class="seal-text"><textPath href="#sealpath" startOffset="0">ELITE BUTCHERY · UTHIRU · EST 2023 · </textPath></text>
+        <circle class="seal-ring" cx="100" cy="100" r="77"/>
+        <text class="seal-text"><textPath href="#sealpath" startOffset="0">ELITE BUTCHERY · UTHIRU · EST 2023 · PREMIUM CUTS · </textPath></text>
       </svg>
       <img class="hero-logo" src="assets/img/logo.png" alt="Elite Butchery — Premium Cuts, Quality Assured, Est. 2023" />
     </div>
@@ -129,15 +129,31 @@
 <!-- PRICE LIST -->
 <section id="pricelist">
   <div class="wrap">
-    <div class="shop-top">
-      <div class="sec-head reveal" style="margin-bottom:0">
+    <div class="pricecard reveal">
+      <div class="pricecard-body">
         <span class="eyebrow">Price list</span>
-        <h2>Full Price List</h2>
-        <p>All prices in Kenyan Shillings, <strong>per kilogram</strong>. Tap Print to save or print a copy for the shop.</p>
+        <h2>Our Full Price List</h2>
+        <p>Every cut, priced per kilogram in Kenyan Shillings. Download the PDF and open it on your phone to zoom in, scroll and browse the full range.</p>
+        <div class="pricecard-actions">
+          <button class="btn" id="downloadPrices" type="button">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+            Download Price List (PDF)
+          </button>
+          <span class="pricecard-note" id="pdfNote"></span>
+        </div>
       </div>
-      <button class="btn btn--ghost btn--sm" id="printPrices" type="button">🖨&nbsp; Print price list</button>
+      <div class="pricecard-visual" aria-hidden="true">
+        <div class="pl-sheet">
+          <span class="pl-sheet-title">ELITE BUTCHERY</span>
+          <span class="pl-sheet-sub">Price List · KES / kg</span>
+          <span class="pl-row"><i></i><b>800</b></span>
+          <span class="pl-row"><i></i><b>980</b></span>
+          <span class="pl-row"><i></i><b>1,250</b></span>
+          <span class="pl-row"><i></i><b>870</b></span>
+          <span class="pl-row"><i></i><b>750</b></span>
+        </div>
+      </div>
     </div>
-    <div id="priceList" class="pricelist-wrap reveal"><!-- table injected --></div>
   </div>
 </section>
 
