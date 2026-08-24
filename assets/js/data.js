@@ -19,7 +19,7 @@ window.BUTCHERY_DEFAULTS = {
     email: "orders@elitebutchery.co.ke",
     hours: "Open daily: 9:00am – 11:00pm",
     wholesale: "Hotels, butcheries & events — carcass and bulk rates on request.",
-    deliveryNote: "Free delivery available · Pay on delivery",
+    deliveryNote: "Free delivery within 1 km of our Uthiru shop · beyond 1 km, delivery charges apply · Pay on delivery",
     deliveryFee: 0,                    // KES flat delivery fee (0 = free)
     freeDeliveryThreshold: 0,          // KES subtotal for free delivery (0 = always free)
     estYear: "2023"

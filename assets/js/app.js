@@ -161,7 +161,7 @@
     var b = S.getBusiness();
     var del = S.deliveryFor(sub);
     $("#subtotal").textContent = S.format(sub);
-    $("#delivery").textContent = sub === 0 ? "—" : (del === 0 ? "FREE" : S.format(del));
+    $("#delivery").textContent = sub === 0 ? "—" : (del === 0 ? "Free ≤ 1 km" : S.format(del));
     $("#delivery").style.color = (del === 0 && sub > 0) ? "var(--good)" : "";
     $("#total").textContent = S.format(sub + del);
     $("#checkout").disabled = sub === 0;
@@ -169,11 +169,7 @@
     var pay = b.mpesaTill ? "Pay on delivery or via M-Pesa Till " + b.mpesaTill + "." : "Pay on delivery.";
     var hint = $("#dhint");
     if (sub === 0) hint.textContent = "Add cuts to start your order.";
-    else if (del === 0) hint.textContent = "Free delivery available. " + pay;
-    else {
-      var rem = Number(b.freeDeliveryThreshold) - sub;
-      hint.textContent = rem > 0 ? "Add " + S.format(rem) + " more for free delivery." : pay;
-    }
+    else hint.textContent = "Free delivery within 1 km of Uthiru — beyond 1 km a delivery fee applies, confirmed on WhatsApp. " + pay;
   }
 
   $("#ditems").addEventListener("click", function (e) {
@@ -187,22 +183,36 @@
   $("#checkout").addEventListener("click", function () {
     var b = S.getBusiness(), cart = S.getCart(), ids = Object.keys(cart);
     if (!ids.length) return;
+
+    // require delivery details
+    var nameEl = $("#ordName"), locEl = $("#ordLoc");
+    var name = nameEl.value.trim(), loc = locEl.value.trim(), bad = false;
+    nameEl.classList.toggle("err", !name); if (!name) bad = true;
+    locEl.classList.toggle("err", !loc); if (!loc) bad = true;
+    if (bad) { (name ? locEl : nameEl).focus(); toast("Please add your name and delivery location"); return; }
+
     var lines = ids.map(function (id) {
       var p = S.productById(id);
       return "• " + p.name + " — " + qtyText(p, cart[id]) + " @ " + S.format(p.price) + (isEach(p) ? "/ea" : "/kg") + " = " + S.format(p.price * cart[id]);
     });
-    var sub = S.cartSubtotal(), del = S.deliveryFor(sub);
+    var sub = S.cartSubtotal();
     var msg = "Hello " + b.name + ", I would like to order:\n\n"
       + lines.join("\n")
       + "\n\nSubtotal: " + S.format(sub)
-      + "\nDelivery: " + (del === 0 ? "FREE" : S.format(del))
-      + "\nTotal: " + S.format(sub + del)
+      + "\nDelivery: Free within 1 km of Uthiru (charges apply beyond — please confirm)"
       + "\nPayment: " + (b.mpesaTill ? "Pay on delivery or M-Pesa Till " + b.mpesaTill : "Pay on delivery")
-      + "\n\nName:\nDelivery location:\nPreferred time:";
+      + "\n\nName: " + name
+      + "\nDelivery location: " + loc
+      + "\nPreferred time: ";
     var num = (b.whatsapp || "").replace(/[^\d]/g, "");
     var url = "https://wa.me/" + num + "?text=" + encodeURIComponent(msg);
     window.open(url, "_blank", "noopener");
     toast("Opening WhatsApp with your order…");
+  });
+
+  // clear the error outline as the user types
+  ["#ordName", "#ordLoc"].forEach(function (sel) {
+    var el = $(sel); if (el) el.addEventListener("input", function () { el.classList.remove("err"); });
   });
 
   /* ---- drawer ---- */

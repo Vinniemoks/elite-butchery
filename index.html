@@ -60,22 +60,12 @@
       </div>
       <div class="trust">
         <div><b>Est. 2023</b>Uthiru,<br>Nairobi</div>
-        <div><b>Free</b>delivery<br>available</div>
+        <div><b>Free</b>delivery<br>within 1 km</div>
         <div><b>9am–11pm</b>open<br>daily</div>
       </div>
     </div>
-    <div class="heroart" aria-hidden="true">
-      <svg class="cleaver" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M40 32h96a10 10 0 0 1 10 10v58a10 10 0 0 1-10 10H58l-4 44a6 6 0 0 1-6 5h-4a6 6 0 0 1-6-6l6-121a10 10 0 0 1 2-10Z"/>
-        <path d="M146 60h26a8 8 0 0 1 8 8v6a8 8 0 0 1-8 8h-26"/>
-        <path d="M64 52v46M86 52v46M108 52v46" opacity=".55"/>
-      </svg>
-      <svg class="stamp" viewBox="0 0 120 120">
-        <circle class="ring" cx="60" cy="60" r="56"/><circle class="ring" cx="60" cy="60" r="44"/>
-        <path id="cir" d="M60,60 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0" fill="none"/>
-        <text font-family="Helvetica,Arial" font-size="10.5" font-weight="800" letter-spacing="3" fill="currentColor"><textPath href="#cir" startOffset="0">ELITE BUTCHERY · UTHIRU · EST 2023 · PREMIUM · </textPath></text>
-        <text x="60" y="66" text-anchor="middle" font-family="Helvetica,Arial" font-size="15" font-weight="800" fill="currentColor">KE</text>
-      </svg>
+    <div class="heroart heroart--logo">
+      <img class="hero-logo" src="assets/img/logo.png" alt="Elite Butchery — Premium Cuts, Quality Assured, Est. 2023" />
     </div>
   </div>
 </section>
@@ -299,6 +289,10 @@
   </div>
   <div class="ditems" id="ditems"></div>
   <div class="dfoot">
+    <div class="dform">
+      <input id="ordName" type="text" autocomplete="name" placeholder="Your name" aria-label="Your name" />
+      <input id="ordLoc" type="text" autocomplete="address-level3" placeholder="Delivery location (estate, house/plot no.)" aria-label="Delivery location" />
+    </div>
     <div class="dline"><span>Subtotal</span><span class="num" id="subtotal">KSh 0</span></div>
     <div class="dline"><span>Delivery</span><span id="delivery">—</span></div>
     <div class="dtotal"><b>Total</b><span class="amt num" id="total">KSh 0</span></div>
