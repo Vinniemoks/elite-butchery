@@ -43,7 +43,7 @@
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:82px}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
   font-size:clamp(15px,.4vw + 14px,17px);line-height:1.62;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
@@ -85,15 +85,18 @@ img,svg{max-width:100%;display:block}
 /* ---------------- header ---------------- */
 header.site{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--ground) 86%,transparent);
   backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
-.bar{display:flex;align-items:center;gap:.8rem;height:74px}
-.brand{display:flex;align-items:center;gap:.7rem;font-family:var(--display);font-weight:800}
+.bar{display:flex;align-items:center;gap:.9rem;height:90px}
+.brand{display:flex;align-items:center;gap:.8rem;font-family:var(--display);font-weight:800}
 .brand .mark{width:34px;height:34px;border-radius:8px;flex:none;background:var(--oxblood);color:var(--oxblood-ink);display:grid;place-items:center;box-shadow:var(--shadow-sm)}
-.brand b{font-size:1.3rem;letter-spacing:-.01em;display:block}
-.brand .tag{font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-top:-2px}
-nav.main{margin-left:auto;display:flex;align-items:center;gap:.2rem}
-nav.main a{font-size:.86rem;font-weight:600;color:var(--ink-soft);padding:.5rem .75rem;border-radius:8px;transition:color .15s,background .15s}
+.brand b{font-size:1.62rem;letter-spacing:-.01em;display:block}
+.brand .tag{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-top:-2px}
+nav.main{margin-left:auto;display:flex;align-items:center;gap:.25rem}
+nav.main a{font-size:1.02rem;font-weight:600;color:var(--ink-soft);padding:.55rem .9rem;border-radius:8px;transition:color .15s,background .15s}
 nav.main a:hover{color:var(--ink);background:var(--surface-2)}
-.hdr-actions{display:flex;align-items:center;gap:.5rem;margin-left:.4rem}
+.hdr-actions{display:flex;align-items:center;gap:.55rem;margin-left:.5rem}
+.hdr-actions .cartbtn.btn--sm{padding:.72rem 1.15rem;font-size:.86rem}
+.hdr-actions .iconbtn{padding:.6rem}
+.hdr-actions .iconbtn svg{width:20px;height:20px}
 .cartbtn{position:relative;display:inline-flex;align-items:center;gap:.5rem}
 .cartbtn .count{position:absolute;top:-7px;right:-7px;min-width:19px;height:19px;padding:0 4px;background:var(--brass);color:#fff;
   font-size:.68rem;font-weight:800;border-radius:99px;display:grid;place-items:center;font-variant-numeric:tabular-nums;
@@ -101,7 +104,7 @@ nav.main a:hover{color:var(--ink);background:var(--surface-2)}
 .cartbtn.has .count{transform:scale(1)}
 .menutoggle{display:none}
 @media (max-width:900px){
-  nav.main{position:fixed;inset:74px 0 auto 0;flex-direction:column;align-items:stretch;gap:0;background:var(--surface);
+  nav.main{position:fixed;inset:90px 0 auto 0;flex-direction:column;align-items:stretch;gap:0;background:var(--surface);
     border-bottom:1px solid var(--line);padding:.5rem var(--pad) 1rem;transform:translateY(-160%);transition:transform .3s ease;box-shadow:var(--shadow-md);margin:0}
   nav.main.open{transform:translateY(0)}
   nav.main a{padding:.85rem .4rem;border-radius:0;border-bottom:1px solid var(--line)}
@@ -350,7 +353,7 @@ table.admin .pname span{font-size:.76rem;color:var(--ink-faint);font-style:itali
 /* =============================================================
    Logo, category groups, price list, print  (Elite Butchery)
    ============================================================= */
-.logo-mark{background:transparent!important;box-shadow:none;width:auto;height:64px;border-radius:0}
+.logo-mark{background:transparent!important;box-shadow:none;width:auto;height:80px;border-radius:0}
 .logo-mark img{height:100%;width:auto;display:block;transform-origin:center;animation:logo-breathe 3.6s ease-in-out infinite}
 @keyframes logo-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 .brand:hover .logo-mark img{animation:logo-spin 1s ease}
