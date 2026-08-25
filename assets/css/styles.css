@@ -43,6 +43,7 @@
 }
 
 *{box-sizing:border-box}
+[hidden]{display:none!important}   /* ensure the hidden attribute always hides (beats class display rules, e.g. admin login/dash) */
 html{scroll-behavior:smooth;scroll-padding-top:100px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
