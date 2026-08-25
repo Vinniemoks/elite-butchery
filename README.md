@@ -6,7 +6,7 @@ check out over **WhatsApp** (pay on delivery or via **M-Pesa Buy Goods**). An **
 lets you edit prices and settings and publish them to the live site.
 
 - **Storefront:** [`index.html`](index.html)
-- **Admin dashboard:** [`admin.html`](admin.html) — default PIN **`1234`** (change it immediately)
+- **Admin dashboard:** [`admin.html`](admin.html) — PIN-gated (set in assets/js/data.js)
 
 ## Features
 
@@ -92,7 +92,7 @@ Drag-and-drop the `Butchery` folder onto <https://app.netlify.com/drop>, or conn
 
 ## Before you go live — checklist
 
-- [ ] Change the admin **PIN** (Admin → *Admin PIN*)
+- [x] Admin PIN set (change anytime in Admin → Admin PIN, then Export for deploy)
 - [x] Phone/WhatsApp **0718 509 658**, **open daily 9am–11pm**, **free delivery + pay on delivery** — set from your flyer; confirm they're correct
 - [ ] Confirm the **email** (`orders@elitebutchery.co.ke` is a placeholder) and the exact **street address** in Uthiru
 - [ ] Add an **M-Pesa Till** in Admin if you want it shown (blank = hidden; you're currently pay-on-delivery)
