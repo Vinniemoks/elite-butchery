@@ -16,7 +16,8 @@ window.BUTCHERY_DEFAULTS = {
     phone: "+254 718 509 658",
     whatsapp: "254718509658",          // digits only, country code first, no +
     mpesaTill: "4094694",              // M-Pesa Buy Goods till (registered "Savvy Vendors"); blank = hidden
-    email: "orders@elitebutchery.co.ke",
+    email: "",                         // no public email; WhatsApp is the contact channel
+    maps: "https://www.google.com/maps/search/?api=1&query=Elite+Butchery%2C+Uthiru%2C+Nairobi",  // replace with your exact pin/place link
     hours: "Open daily: 9:00am – 11:00pm",
     wholesale: "Hotels, butcheries & events — carcass and bulk rates on request.",
     deliveryNote: "Free delivery within 1 km of our Uthiru shop · beyond 1 km, delivery charges apply · Pay on delivery",

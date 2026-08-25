@@ -18,6 +18,7 @@
       var key = el.getAttribute("data-biz-link");
       if (key === "phone") { el.textContent = b.phone; el.href = "tel:" + (b.phone || "").replace(/[^\d+]/g, ""); }
       if (key === "email") { el.textContent = b.email; el.href = "mailto:" + b.email; }
+      if (key === "maps") { el.href = b.maps || "#"; if (!b.maps) el.style.display = "none"; }
     });
     document.title = b.name + " — Fresh Meat Delivery in " + b.location;
     var yr = $("#year"); if (yr) yr.textContent = new Date().getFullYear();

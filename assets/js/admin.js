@@ -108,7 +108,7 @@
   function fillSettings() {
     var b = S.getBusiness();
     var map = { "s-name": "name", "s-location": "location", "s-tagline": "tagline", "s-address": "address",
-      "s-phone": "phone", "s-whatsapp": "whatsapp", "s-email": "email", "s-mpesa": "mpesaTill",
+      "s-phone": "phone", "s-whatsapp": "whatsapp", "s-maps": "maps", "s-mpesa": "mpesaTill",
       "s-hours": "hours", "s-fee": "deliveryFee", "s-free": "freeDeliveryThreshold", "s-give": "givebackPercent" };
     Object.keys(map).forEach(function (id) { var el = $("#" + id); if (el) el.value = b[map[id]] != null ? b[map[id]] : ""; });
   }
@@ -118,7 +118,7 @@
     b.name = $("#s-name").value.trim(); b.location = $("#s-location").value.trim();
     b.tagline = $("#s-tagline").value.trim(); b.address = $("#s-address").value.trim();
     b.phone = $("#s-phone").value.trim(); b.whatsapp = $("#s-whatsapp").value.replace(/[^\d]/g, "");
-    b.email = $("#s-email").value.trim(); b.mpesaTill = $("#s-mpesa").value.trim();
+    b.maps = $("#s-maps").value.trim(); b.mpesaTill = $("#s-mpesa").value.trim();
     b.hours = $("#s-hours").value.trim();
     b.deliveryFee = Number($("#s-fee").value) || 0;
     b.freeDeliveryThreshold = Number($("#s-free").value) || 0;
