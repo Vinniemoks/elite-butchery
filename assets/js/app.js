@@ -256,6 +256,13 @@
       if (!valid) ok = false;
     });
     if (ok) {
+      // actually deliver the message: open WhatsApp to the business with it prefilled
+      var b = S.getBusiness();
+      var text = "Hello " + b.name + ",\n\n" + $("#cf-msg").value.trim()
+        + "\n\nName: " + $("#cf-name").value.trim()
+        + "\nPhone: " + $("#cf-phone").value.trim();
+      var num = (b.whatsapp || "").replace(/[^\d]/g, "");
+      if (num) window.open("https://wa.me/" + num + "?text=" + encodeURIComponent(text), "_blank", "noopener");
       form.querySelector("button[type=submit]").style.display = "none";
       form.querySelector(".formnote").style.display = "none";
       $("#formSuccess").classList.add("show");
